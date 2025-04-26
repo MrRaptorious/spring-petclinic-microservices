@@ -16,6 +16,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>spring-petclinic-invoices-service</module>
         <module>spring-petclinic-admin-server</module>
         <module>spring-petclinic-customers-service</module>
         <module>spring-petclinic-vets-service</module>
@@ -43,7 +44,7 @@
         <container.platform>linux/amd64</container.platform>
         <!-- The -load option is a shortcut for or -output=type=docker -->
         <!-- Could be changed by the -push option !-->
-        <container.build.extraarg>--load</container.build.extraarg>
+        <container.build.extraarg>--output=type=docker</container.build.extraarg>
     </properties>
 
     <dependencyManagement>
