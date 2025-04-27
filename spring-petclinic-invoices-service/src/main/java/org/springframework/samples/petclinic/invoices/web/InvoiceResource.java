@@ -45,25 +45,23 @@ class InvoiceResource {
         this.invoiceRepository = invoiceRepository;
     }
 
+    // GET: Alle Rechnungen für ein bestimmtes Visit abfragen
+    @GetMapping("invoice")
+    public Invoice read(@RequestParam("visitId") @Min(1) int visitId) {
+        return invoiceRepository.findByVisitId(visitId);
+    }
+
     @PostMapping("visits/{visitId}/invoice")
     @ResponseStatus(HttpStatus.CREATED)
     public Invoice create(
         @Valid @RequestBody Invoice invoice,
         @PathVariable("visitId") @Min(1) int visitId) {
-    
+
         // Die VisitId in der Rechnung setzen
         invoice.setVisitId(visitId);
         log.info("Saving invoice {}", invoice);
-    
+
         // Rechnung speichern und zurückgeben
         return invoiceRepository.save(invoice);
-    }
-
-    // GET: Alle Rechnungen für ein bestimmtes Visit abfragen
-    //@GetMapping("visits/{visitId}/invoice")
-    @GetMapping("invoice")
-    //public Invoice read(@PathVariable("visitId") @Min(1) int visitId) {
-    public Invoice read() {
-        return invoiceRepository.findByVisitId(1);
     }
 }

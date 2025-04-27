@@ -1,4 +1,4 @@
-ROP TABLE invoices IF EXISTS;
+DROP TABLE invoices IF EXISTS;
 
 CREATE TABLE invoices (
   id          INTEGER IDENTITY PRIMARY KEY,
