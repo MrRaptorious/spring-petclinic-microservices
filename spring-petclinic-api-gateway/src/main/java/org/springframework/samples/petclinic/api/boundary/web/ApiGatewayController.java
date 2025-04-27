@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.api.boundary.web;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
 import org.springframework.samples.petclinic.api.application.CustomersServiceClient;
+import org.springframework.samples.petclinic.api.application.InvoiceServiceClient;
 import org.springframework.samples.petclinic.api.application.VisitsServiceClient;
 import org.springframework.samples.petclinic.api.dto.OwnerDetails;
 import org.springframework.samples.petclinic.api.dto.Visits;
@@ -40,14 +41,17 @@ public class ApiGatewayController {
     private final CustomersServiceClient customersServiceClient;
 
     private final VisitsServiceClient visitsServiceClient;
+   // private final InvoiceServiceClient invoiceServiceClient;
 
     private final ReactiveCircuitBreakerFactory cbFactory;
 
     public ApiGatewayController(CustomersServiceClient customersServiceClient,
                                 VisitsServiceClient visitsServiceClient,
+//                                InvoiceServiceClient invoiceServiceClient,
                                 ReactiveCircuitBreakerFactory cbFactory) {
         this.customersServiceClient = customersServiceClient;
         this.visitsServiceClient = visitsServiceClient;
+ //       this.invoiceServiceClient = invoiceServiceClient;
         this.cbFactory = cbFactory;
     }
 
@@ -76,6 +80,22 @@ public class ApiGatewayController {
             return owner;
         };
     }
+
+    // method to add invoice to visit 
+    // private Function<Visits, OwnerDetails> addInvoiceToVisit(OwnerDetails owner) {
+    //     return visits -> {
+    //         owner.pets()
+    //             .forEach(pet -> pet.visits()
+    //                 .forEach(visit -> invoiceServiceClient.getInvoiceForVisit(visit.id())
+    //                     .subscribe(invoice -> visit.setInvoice(invoice))
+    //                 )
+    //             );
+    //         return owner;
+    //     };
+    // }
+
+
+
 
     private Mono<Visits> emptyVisitsForPets() {
         return Mono.just(new Visits(List.of()));

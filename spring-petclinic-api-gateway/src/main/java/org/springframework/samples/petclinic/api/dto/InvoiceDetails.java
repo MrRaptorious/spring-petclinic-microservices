@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.invoices.model;
+package org.springframework.samples.petclinic.api.dto;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.Date;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
-
-public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
-
-    Invoice findByVisitId(int visitId);
-
-   // List<Invoice> findByVisitIdIn(Collection<Integer> visitIds);
+/**
+* @author Manuel Doettling
+ */
+public record InvoiceDetails (
+    Integer id,
+    Double amount,
+    Date dueDate,
+    String status,
+    Integer visitId) {
 }

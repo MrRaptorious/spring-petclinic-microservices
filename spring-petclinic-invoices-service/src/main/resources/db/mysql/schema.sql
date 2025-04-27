@@ -4,9 +4,10 @@ GRANT ALL PRIVILEGES ON petclinic.* TO pc@localhost IDENTIFIED BY 'pc';
 USE petclinic;
 
 CREATE TABLE IF NOT EXISTS invoices (
-  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  pet_id INT(4) UNSIGNED NOT NULL,
-  invoice_date DATE,
-  description VARCHAR(8192),
-  FOREIGN KEY (pet_id) REFERENCES pets(id)
-) engine=InnoDB;
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  amount DECIMAL(10,2) NOT NULL,
+  due_date DATE,
+  status VARCHAR(32) DEFAULT 'OPEN',
+  visit_id INT UNSIGNED NOT NULL,
+  FOREIGN KEY (visit_id) REFERENCES visits(id)
+) ENGINE=InnoDB;

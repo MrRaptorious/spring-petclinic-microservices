@@ -22,11 +22,7 @@ import jakarta.validation.constraints.Size;
 import java.util.Date;
 
 /**
- * Simple JavaBean domain object representing a invoice.
- *
- * @author Ken Krebs
- * @author Maciej Szarlinski
- * @author Ramazan Sakin
+ * Simple JavaBean domain object representing an invoice.
  */
 @Entity
 @Table(name = "invoices")
@@ -36,61 +32,72 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "invoice_date")
+    @Column(nullable = false)
+    private double amount;
+
+    @Column(name = "due_date")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date date = new Date();
+    private Date dueDate = new Date();
 
-    @Size(max = 8192)
-    @Column(name = "description")
-    private String description;
+    @Size(max = 32)
+    @Column(name = "status")
+    private String status = "OPEN";
 
-    @Column(name = "pet_id")
-    private int petId;
+    @Column(name = "visit_id")
+    private int visitId;
 
     public Integer getId() {
         return this.id;
     }
 
-    public Date getDate() {
-        return this.date;
+    public double getAmount() {
+        return this.amount;
     }
 
-    public String getDescription() {
-        return this.description;
+    public Date getDueDate() {
+        return this.dueDate;
     }
 
-    public int getPetId() {
-        return this.petId;
+    public String getStatus() {
+        return this.status;
+    }
+
+    public int getVisitId() {
+        return this.visitId;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 
-    public void setPetId(int petId) {
-        this.petId = petId;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
+    public void setVisitId(int visitId) {
+        this.visitId = visitId;
+    }
 
     public static final class InvoiceBuilder {
         private Integer id;
-        private Date date;
-        private @Size(max = 8192) String description;
-        private int petId;
+        private double amount;
+        private Date dueDate;
+        private @Size(max = 32) String status;
+        private int visitId;
 
         private InvoiceBuilder() {
         }
 
-        public static InvoiceBuilder aInvoice() {
+        public static InvoiceBuilder anInvoice() {
             return new InvoiceBuilder();
         }
 
@@ -99,27 +106,32 @@ public class Invoice {
             return this;
         }
 
-        public InvoiceBuilder date(Date date) {
-            this.date = date;
+        public InvoiceBuilder amount(double amount) {
+            this.amount = amount;
             return this;
         }
 
-        public InvoiceBuilder description(String description) {
-            this.description = description;
+        public InvoiceBuilder dueDate(Date dueDate) {
+            this.dueDate = dueDate;
             return this;
         }
 
-        public InvoiceBuilder petId(int petId) {
-            this.petId = petId;
+        public InvoiceBuilder status(String status) {
+            this.status = status;
             return this;
+        }
+
+        public InvoiceBuilder visitId(int visitId) {
+            return this.visitId(visitId);
         }
 
         public Invoice build() {
             Invoice invoice = new Invoice();
             invoice.setId(id);
-            invoice.setDate(date);
-            invoice.setDescription(description);
-            invoice.setPetId(petId);
+            invoice.setAmount(amount);
+            invoice.setDueDate(dueDate);
+            invoice.setStatus(status);
+            invoice.setVisitId(visitId);
             return invoice;
         }
     }

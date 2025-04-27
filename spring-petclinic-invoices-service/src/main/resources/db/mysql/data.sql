@@ -1,4 +1,4 @@
-INSERT IGNORE INTO invoices VALUES (1, 7, '2010-03-04', 'rabies shot');
-INSERT IGNORE INTO invoices VALUES (2, 8, '2011-03-04', 'rabies shot');
-INSERT IGNORE INTO invoices VALUES (3, 8, '2009-06-04', 'neutered');
-INSERT IGNORE INTO invoices VALUES (4, 7, '2008-09-04', 'spayed');
+INSERT IGNORE INTO invoices (id, amount, due_date, status, visit_id) VALUES (1, 49.99, '2024-04-01', 'OPEN', 7);
+INSERT IGNORE INTO invoices (id, amount, due_date, status, visit_id) VALUES (2, 79.50, '2024-04-02', 'PAID', 8);
+INSERT IGNORE INTO invoices (id, amount, due_date, status, visit_id) VALUES (3, 99.00, '2024-04-05', 'OPEN', 8);
+INSERT IGNORE INTO invoices (id, amount, due_date, status, visit_id) VALUES (4, 120.00, '2024-04-10', 'CANCELLED', 7);

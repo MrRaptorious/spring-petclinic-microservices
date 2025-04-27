@@ -33,14 +33,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @author Juergen Hoeller
- * @author Ken Krebs
- * @author Arjen Poutsma
- * @author Michael Isvy
- * @author Maciej Szarlinski
- * @author Ramazan Sakin
- */
 @RestController
 @Timed("petclinic.invoice")
 class InvoiceResource {
@@ -53,30 +45,25 @@ class InvoiceResource {
         this.invoiceRepository = invoiceRepository;
     }
 
-    @PostMapping("owners/*/pets/{petId}/invoices")
+    @PostMapping("visits/{visitId}/invoice")
     @ResponseStatus(HttpStatus.CREATED)
     public Invoice create(
         @Valid @RequestBody Invoice invoice,
-        @PathVariable("petId") @Min(1) int petId) {
-
-        invoice.setPetId(petId);
+        @PathVariable("visitId") @Min(1) int visitId) {
+    
+        // Die VisitId in der Rechnung setzen
+        invoice.setVisitId(visitId);
         log.info("Saving invoice {}", invoice);
+    
+        // Rechnung speichern und zurückgeben
         return invoiceRepository.save(invoice);
     }
 
-    @GetMapping("owners/*/pets/{petId}/invoices")
-    public List<Invoice> read(@PathVariable("petId") @Min(1) int petId) {
-        return invoiceRepository.findByPetId(petId);
-    }
-
-    @GetMapping("pets/invoices")
-    public Invoices read(@RequestParam("petId") List<Integer> petIds) {
-        final List<Invoice> byPetIdIn = invoiceRepository.findByPetIdIn(petIds);
-        return new Invoices(byPetIdIn);
-    }
-
-    record Invoices(
-        List<Invoice> items
-    ) {
+    // GET: Alle Rechnungen für ein bestimmtes Visit abfragen
+    //@GetMapping("visits/{visitId}/invoice")
+    @GetMapping("invoice")
+    //public Invoice read(@PathVariable("visitId") @Min(1) int visitId) {
+    public Invoice read() {
+        return invoiceRepository.findByVisitId(1);
     }
 }

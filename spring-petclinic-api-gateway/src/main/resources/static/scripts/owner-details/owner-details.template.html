@@ -47,11 +47,15 @@
                 <tr>
                     <th>Visit Date</th>
                     <th>Description</th>
+                    <th>Invoice</th>
                 </tr>
                 </thead>
                 <tr ng-repeat="visit in pet.visits track by visit.id">
                     <td>{{visit.date | date:'yyyy MMM dd'}}</td>
                     <td>{{visit.description}}</td>
+                    <td>
+                        <a ui-sref="invoice({ownerId: $ctrl.owner.id, petId: pet.id, visitId: visit.id})">Add Invoice</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>
@@ -66,5 +70,6 @@
     </tr>
 </table>
 
+<h2>Pets and Visits</h2>
 
 
