@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+echo "start"
 set -o errexit
 set -o errtrace
 set -o nounset

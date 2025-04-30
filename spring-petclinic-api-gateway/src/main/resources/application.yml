@@ -41,6 +41,12 @@ spring:
           filters:
             - StripPrefix=2
             - CircuitBreaker=name=genaiCircuitBreaker,fallbackUri=/fallback
+        - id: invoices-service
+          uri: lb://invoices-service
+          predicates:
+            - Path=/api/invoice/**
+          filters:
+            - StripPrefix=2
 
 ---
 spring:

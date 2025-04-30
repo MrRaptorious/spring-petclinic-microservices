@@ -3,9 +3,7 @@
 angular.module('invoice')
     .controller('InvoiceController', ['$http', '$state', '$stateParams', '$filter', function ($http, $state, $stateParams, $filter) {
         var self = this;
-        var url = "api/invoice/owners/" + ($stateParams.ownerId || 0)
-        + "/pets/"+ ($stateParams.petId || 0)
-        + "/visits/" + ($stateParams.visitId || 0)
+        var url = "api/invoice/visits/" + ($stateParams.visitId || 0)
         + "/invoice";
 
         self.dueDate = new Date();
@@ -13,7 +11,8 @@ angular.module('invoice')
         self.status = "OPEN";
         self.amount = 50.00;
 
-        $http.get(url).then(function (resp) {
+        var getUrl="api/invoice/invoice?visitId=" + ($stateParams.visitId || 0)
+        $http.get(getUrl).then(function (resp) {
             self.invoice = resp.data;
         });
 

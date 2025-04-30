@@ -51,6 +51,11 @@ class InvoiceResource {
         return invoiceRepository.findByVisitId(visitId);
     }
 
+    @GetMapping("test")
+    public String read() {
+        return "invoiceRepository.findByVisitId(visitId);";
+    }
+
     @PostMapping("visits/{visitId}/invoice")
     @ResponseStatus(HttpStatus.CREATED)
     public Invoice create(
