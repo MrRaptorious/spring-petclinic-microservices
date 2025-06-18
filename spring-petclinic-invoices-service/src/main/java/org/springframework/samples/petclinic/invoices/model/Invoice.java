@@ -122,7 +122,8 @@ public class Invoice {
         }
 
         public InvoiceBuilder visitId(int visitId) {
-            return this.visitId(visitId);
+            this.visitId = visitId;
+            return this;
         }
 
         public Invoice build() {
